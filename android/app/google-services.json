@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "50960124451",
+    "project_id": "fir-tutorial-a403a",
+    "storage_bucket": "fir-tutorial-a403a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50960124451:android:57db84b4c3fc6abe807f96",
+        "android_client_info": {
+          "package_name": "com.example.flutterfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzxrbBtdDq_87_5bLUJRRscvFlCrCa19s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
