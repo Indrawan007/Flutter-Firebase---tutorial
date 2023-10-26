@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,14 +10,31 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // controller
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: ListView(
-        children: [
-          Column(
+      home: Scaffold(
+        backgroundColor: Colors.grey[300],
+        body: SingleChildScrollView(
+          child: Column(
             children: [
               // icon android
               const Padding(
@@ -27,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 75,
               ),
               // Hello Again,
               Text(
@@ -49,13 +67,17 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: TextFormField(
+                  controller: _emailController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.deepPurple),
+                    ),
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     hintText: "Email",
@@ -68,14 +90,18 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: TextFormField(
+                  controller: _passwordController,
                   obscureText: true,
                   textInputAction: TextInputAction.go,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.deepPurple),
+                    ),
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     hintText: "Password",
@@ -89,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.deepPurpleAccent),
+                        MaterialStateProperty.all(Colors.deepPurple),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
@@ -100,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                       const Size(double.infinity, 60),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: signIn,
                   child: const Text("Sign In"),
                 ),
               ),
@@ -122,8 +148,8 @@ class _LoginPageState extends State<LoginPage> {
               )
             ],
           ),
-        ],
+        ),
       ),
-    ));
+    );
   }
 }
